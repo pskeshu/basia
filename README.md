@@ -165,8 +165,8 @@ def analyze_microscope_image(image_path, prompt):
 
 # Example usage
 result = analyze_microscope_image(
-    "microscope_sample.jpg",
-    "Analyze this microscope image. Identify any cellular structures and suggest optimal focus adjustments."
+    "fluorescence_sample.jpg",
+    "Analyze this fluorescence microscopy image. Identify cellular organelles and suggest optimal imaging parameters."
 )
 print(result)
 ```
@@ -213,7 +213,7 @@ class MicroscopeVLM:
             if cv2.waitKey(1) & 0xFF == ord('s'):  # Press 's' to analyze
                 analysis = await self.analyze_frame(
                     frame, 
-                    "Analyze this microscope view. Suggest focus and lighting adjustments."
+                    "Analyze this fluorescence microscopy view. Suggest focus, exposure time, and filter adjustments."
                 )
                 print(f"Analysis: {analysis}")
             
@@ -290,8 +290,8 @@ async def demo_sessions():
     
     # Process images concurrently
     tasks = [
-        manager.process_image(session1, None, "What should I look for in blood samples?"),
-        manager.process_image(session2, None, "How do I adjust microscope lighting?")
+        manager.process_image(session1, None, "What fluorescence markers should I use for mitochondrial imaging?"),
+        manager.process_image(session2, None, "How do I optimize excitation wavelength for GFP imaging?")
     ]
     
     results = await asyncio.gather(*tasks)
@@ -400,7 +400,7 @@ Content-Type: application/json
 
 {
   "model": "llama3.2-vision:11b",
-  "prompt": "Analyze this microscope image",
+  "prompt": "Analyze this fluorescence microscopy image",
   "images": ["base64_encoded_image"],
   "stream": false
 }
